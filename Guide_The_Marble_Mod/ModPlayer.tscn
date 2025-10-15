@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcc4otaubycwm"]
+
+[ext_resource type="Script" path="res://Guide_The_Marble_Mod/ModPlayer.lua" id="1_3jkg2"]
+[ext_resource type="Texture2D" uid="uid://dmjyoi16j6ywm" path="res://Guide_The_Marble_Mod/modspritesheet.png" id="2_qojy0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulxks"]
+atlas = ExtResource("2_qojy0")
+region = Rect2(0, 26, 182, 148)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m0unk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ulxks")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dskcm"]
+size = Vector2(117, 102)
+
+[node name="ModPlayer" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_3jkg2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m0unk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10.5, 18)
+shape = SubResource("RectangleShape2D_dskcm")

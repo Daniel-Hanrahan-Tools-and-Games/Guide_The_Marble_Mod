@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1ddgqgk8qqwl"]
+
+[ext_resource type="Texture2D" uid="uid://b551lrl1h2myl" path="res://Guide_The_Marble_Mod/modroom3.png" id="1_kdcaj"]
+[ext_resource type="PackedScene" uid="uid://cre2ropqetc8i" path="res://Guide_The_Marble_Mod/ModBumper.tscn" id="1_y4hgl"]
+[ext_resource type="PackedScene" uid="uid://dcc4otaubycwm" path="res://Guide_The_Marble_Mod/ModPlayer.tscn" id="2_43qv0"]
+[ext_resource type="Script" path="res://Guide_The_Marble_Mod/ModWallCollision.lua" id="3_adsmc"]
+[ext_resource type="Script" path="res://Guide_The_Marble_Mod/NextArea.lua" id="4_x675u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ct1ss"]
+size = Vector2(288, 272)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gis6"]
+size = Vector2(1149.5, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vl8t2"]
+size = Vector2(66, 58)
+
+[node name="ModRoom3" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 1154.0
+offset_bottom = 645.0
+texture = ExtResource("1_kdcaj")
+expand_mode = 1
+
+[node name="ModBumper" parent="." instance=ExtResource("1_y4hgl")]
+position = Vector2(707, 587)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(577, 325)
+
+[node name="Wall-Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_adsmc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall-Hitbox"]
+position = Vector2(210, 486)
+shape = SubResource("RectangleShape2D_ct1ss")
+
+[node name="NextArea" type="Area2D" parent="."]
+script = ExtResource("4_x675u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextArea"]
+position = Vector2(579.25, 682)
+shape = SubResource("RectangleShape2D_6gis6")
+
+[node name="ModPlayer" type="RigidBody2D" parent="."]
+position = Vector2(356, -31)
+
+[node name="ModPlayer" parent="ModPlayer" instance=ExtResource("2_43qv0")]
+position = Vector2(271, 62)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ModPlayer"]
+position = Vector2(270, 76)
+shape = SubResource("RectangleShape2D_vl8t2")
+
+[node name="Wall-Hitbox2" type="Area2D" parent="."]
+script = ExtResource("3_adsmc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall-Hitbox2"]
+position = Vector2(920, 291)
+shape = SubResource("RectangleShape2D_ct1ss")
+
+[node name="Notice" type="RichTextLabel" parent="."]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 668.0
+offset_bottom = 103.0
+bbcode_enabled = true
+text = "[color=#000000]Quest_For_Chalice_Mod [/color]
+[color=#000000]Copyright (C) 2025 Daniel Hanrahan Tools and Games[/color]
+[color=#000000]This Expansion or Mod is under the BSD-3-Clause license and everything else in this[/color]
+[color=#000000]Expansion/Mod is under this: This work is licensed under CC BY 4.0[/color]"
+
+[connection signal="body_entered" from="Wall-Hitbox" to="Wall-Hitbox" method="Collision"]
+[connection signal="body_entered" from="NextArea" to="NextArea" method="Collision"]
+[connection signal="body_entered" from="Wall-Hitbox2" to="Wall-Hitbox2" method="Collision"]
